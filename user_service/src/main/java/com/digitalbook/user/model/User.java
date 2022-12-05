@@ -28,13 +28,14 @@ public class User {
 		
 	}
 	
-	public User(int id, String userName, String password, String email, Role role) {
+	public User(int id, String userName, String password, String email, Role role,Boolean isActive) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.role = role;
+		this.isActive = isActive;
 	}
 	
 	public User(String userName,String email,String password) {
@@ -45,7 +46,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", email=" + email + ", role="
-				+ role + "]";
+				+ role + ",isActive="+ isActive +" ]";
 	}
 	public int getId() {
 		return id;
@@ -77,6 +78,12 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	public Boolean getIsActive() {
+		return isActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		this.isActive=isActive;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="userid", nullable = false, unique = true, length = 20)
@@ -90,6 +97,10 @@ public class User {
 	
 	@Column(name="email",nullable = false, unique = true, length = 45)
 	private String email;
+	
+	@Column(name="isActive")
+	Boolean isActive;
+	
 	
 //	@ManyToMany(fetch=FetchType.LAZY)
 //	@JoinTable(name="user_roles",

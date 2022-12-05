@@ -7,11 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import com.digitalbook.user.model.User;
 
+
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
-	Optional<User> findByUserName(String username);
+	//Optional<User> findByUserName(String username);
 	User findByUserAndEmail(String username,String email);
-	Boolean existByUserName(String username);
-	Boolean existByEmail(String email);
+	User findByEmail(String email);
+	User findByName(String username);
 
 }

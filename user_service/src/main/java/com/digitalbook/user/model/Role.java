@@ -19,11 +19,13 @@ public class Role {
 	
 	@Column(name="Role_name", length=10)
 	private String roleName;
+	
 	public Role() {
-		
+		super();
 	}
-	public Role(int id) {
+	public Role(int id,String roleName) {
 		this.id=id;
+		this.roleName=roleName;
 	}
 	public int getId() {
 		return id;
