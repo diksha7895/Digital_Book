@@ -10,13 +10,13 @@ import com.digitalbook.user.repository.UserRepository;
 public class UserService {
 	
 	@Autowired
-	private UserRepository uesrRepo;
+	private UserRepository userRepo;
 	
 	public void saveUser(User user) {
 		userRepo.save(user);
 	}
 	
-	public String findByName(String username) {
+	public int findByName(String username) {
 		return userRepo.findByName(username).getId();
 	}
 	
