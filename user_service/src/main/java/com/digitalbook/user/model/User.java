@@ -3,18 +3,18 @@ package com.digitalbook.user.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+
 
 @Entity
 @Table(name="users",
@@ -24,7 +24,30 @@ import jakarta.persistence.UniqueConstraint;
 					})
 public class User {
 	
-	public User() {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="userid", nullable = false, unique = true, length = 20)
+	private int id;
+	
+	@Column(name="username", nullable = false, length = 40)
+	private String userName;
+	
+	@Column(name="password",nullable = false, length = 20)
+	private String password;
+	
+	@Column(name="email",nullable = false, unique = true, length = 45)
+	private String email;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="role_id")
+	private Role role;
+	
+	@Column(name="isActive")
+	Boolean isActive;
+	
+	
+
+public User() {
 		
 	}
 	
@@ -43,11 +66,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", email=" + email + ", role="
-				+ role + ",isActive="+ isActive +" ]";
-	}
+	
 	public int getId() {
 		return id;
 	}
@@ -84,30 +103,13 @@ public class User {
 	public void setIsActive(Boolean isActive) {
 		this.isActive=isActive;
 	}
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="userid", nullable = false, unique = true, length = 20)
-	private int id;
-	
-	@Column(name="username", nullable = false, length = 40)
-	private String userName;
-	
-	@Column(name="password",nullable = false, length = 20)
-	private String password;
-	
-	@Column(name="email",nullable = false, unique = true, length = 45)
-	private String email;
-	
-	@Column(name="isActive")
-	Boolean isActive;
 	
 	
-//	@ManyToMany(fetch=FetchType.LAZY)
-//	@JoinTable(name="user_roles",
-//								joinColumns = @JoinColumn(name="user_id"),
-//								inverseJoinColumns = @JoinColumn(name="role_id"))
-	@OneToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="role_id")
-	private Role role;
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", email=" + email + ", role="
+				+ role + ",isActive="+ isActive +" ]";
+	}
 	
 }

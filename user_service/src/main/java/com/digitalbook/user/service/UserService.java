@@ -10,15 +10,21 @@ import com.digitalbook.user.repository.UserRepository;
 public class UserService {
 	
 	@Autowired
-	private UserRepository userRepo;
+	private UserRepository userRepository;
 	
 	public void saveUser(User user) {
-		userRepo.save(user);
+		userRepository.save(user);
 	}
 	
-	public int findByName(String username) {
-		return userRepo.findByName(username).getId();
+	public int findByName(String userName) {
+		User user = userRepository.findByUserName(userName);
+		return user == null ? 0 : user.getId();
 	}
+	
+	public User duplicateUserNameAndEmail(String userName, String email) {
+		return userRepository.findByUserNameAndEmail(userName, email);
+	}
+	
 	
 	
 }

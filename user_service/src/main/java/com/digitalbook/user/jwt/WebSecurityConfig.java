@@ -20,28 +20,38 @@ public class WebSecurityConfig {
 
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
+	
+	AuthenticationManager authenticationManager;
+	
+	
 
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {
 		return new AuthTokenFilter();
 	}
+	
+
 
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-	//	authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
-	//@Bean
-//	public AuthenticationManager authenticationManagerBean() throws Exception {
+	@Bean
+	public AuthenticationManager authenticationManagerBean(HttpSecurity http) throws Exception {
+		AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+		authenticationManagerBuilder.userDetailsService(userDetailsService);
+		authenticationManager = authenticationManagerBuilder.build();
+		return authenticationManager;
 		//return super.authenticationManagerBean();
-	//}
+	}
 
-	//@Bean
-	//public PasswordEncoder passwordEncoder() {
-	//	return new BCryptPasswordEncoder();
-	//}
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 	protected void configure(HttpSecurity http) throws Exception {
-	/*	http.cors().and().csrf().disable()
+		http.cors().and().csrf().disable()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
@@ -49,7 +59,7 @@ public class WebSecurityConfig {
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-		*/
+		
 	}
 	
 	

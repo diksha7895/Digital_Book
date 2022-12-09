@@ -9,21 +9,24 @@ import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.MalformedJwtException;
+//import io.jsonwebtoken.*;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Service
 public class JwtUtils {
-	private String secretKey = "caseStudyCTS@";
-	Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+	@Value("${jwt.secret}")
+	private String secret;
 	
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -43,7 +46,7 @@ public class JwtUtils {
 	}
    
 	private Claims getAllClaimsFromToken(String token) {
-		return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
 	}
 
 	private Boolean isTokenExpired(String token) {
@@ -63,7 +66,7 @@ public class JwtUtils {
 		return Jwts.builder().setClaims(claims).setSubject(authentication)
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + 60 * 60 * 10 * 1000))
-				.signWith(SignatureAlgorithm.HS512, key).compact();
+				.signWith(SignatureAlgorithm.HS512,secret).compact();
 	}
 
 	//validate token
@@ -73,12 +76,12 @@ public class JwtUtils {
 	}
 	
 	public String getUserNameFromJwtToken(String token) {
-		return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
+		return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
 	}
 
 	public boolean validateJwtToken(String authToken) {
 		try {
-			Jwts.parser().setSigningKey(secretKey).parseClaimsJws(authToken);
+			Jwts.parser().setSigningKey(secret).parseClaimsJws(authToken);
 			return true;
 		} catch (SignatureException e) {
 			logger.error("Invalid JWT signature: {}", e.getMessage());
