@@ -3,29 +3,23 @@ package com.digitalbook.book.response;
 import java.sql.Blob;
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Lob;
+
 
 public class BookResponse {
 	
-private int bookId;
+
 	
 	private String title;
 	private String category;
 	private double price;
-	private String authorId;
+	private int authorId;
 	//private Blob logo;
 	private String publisher;
 	private Date publishedOn;
 	private Date update;
 	//private String content;
 	private boolean isActive;
-	public int getBookId() {
-		return bookId;
-	}
-	public void setBookId(int bookId) {
-		this.bookId = bookId;
-	}
+	
 	public String getTitle() {
 		return title;
 	}
@@ -44,11 +38,11 @@ private int bookId;
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public String getAuthorId() {
+	public int getAuthorId() {
 		return authorId;
 	}
-	public void setAuthorId(String authorId) {
-		this.authorId = authorId;
+	public void setAuthorId(int i) {
+		this.authorId = i;
 	}
 	public String getPublisher() {
 		return publisher;
@@ -74,10 +68,10 @@ private int bookId;
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public BookResponse(int bookId, String title, String category, double price, String authorId, String publisher,
+	public BookResponse(String title, String category, double price, int authorId, String publisher,
 			Date publishedOn, Date update, boolean isActive) {
 		super();
-		this.bookId = bookId;
+		
 		this.title = title;
 		this.category = category;
 		this.price = price;

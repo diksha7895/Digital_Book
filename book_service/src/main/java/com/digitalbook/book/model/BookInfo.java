@@ -3,12 +3,18 @@ package com.digitalbook.book.model;
 import java.sql.Blob;
 import java.util.Date;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Table;
 
+
+
+@Entity
+@Table(name="BOOKS")
 public class BookInfo {
 	
 	@Id
@@ -25,7 +31,7 @@ public class BookInfo {
 	private double price;
 	
 	@Column(name="Author")
-	private String authorId;
+	private int authorId;
 	
 	@Lob
 	private Blob logo;
@@ -77,11 +83,11 @@ public class BookInfo {
 		this.price = price;
 	}
 
-	public String getAuthorId() {
+	public int getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(String authorId) {
+	public void setAuthorId(int authorId) {
 		this.authorId = authorId;
 	}
 
@@ -138,7 +144,7 @@ public class BookInfo {
 	}
 	
 
-	public BookInfo(int bookId, String title, String category, double price, String authorId, Blob logo,
+	public BookInfo(int bookId, String title, String category, double price, int authorId, Blob logo,
 			String publisher, Date publishedOn, Date update, String content, boolean active) {
 		super();
 		this.bookId = bookId;
