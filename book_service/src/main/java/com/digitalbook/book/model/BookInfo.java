@@ -19,7 +19,7 @@ public class BookInfo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int bookId;
+	private int id;
 	
 	@Column(name="Title")
 	private String title;
@@ -52,11 +52,11 @@ public class BookInfo {
 	private boolean active;
 
 	public int getBookId() {
-		return bookId;
+		return id;
 	}
 
 	public void setBookId(int bookId) {
-		this.bookId = bookId;
+		this.id = bookId;
 	}
 
 	public String getTitle() {
@@ -147,7 +147,7 @@ public class BookInfo {
 	public BookInfo(int bookId, String title, String category, double price, int authorId, Blob logo,
 			String publisher, Date publishedOn, Date update, String content, boolean active) {
 		super();
-		this.bookId = bookId;
+		this.id = bookId;
 		this.title = title;
 		this.category = category;
 		this.price = price;
@@ -162,7 +162,7 @@ public class BookInfo {
 	
 	@Override
 	public String toString() {
-		return "BookInfo [bookId=" + bookId + ", title=" + title + ", category=" + category + ", price=" + price
+		return "BookInfo [bookId=" + id + ", title=" + title + ", category=" + category + ", price=" + price
 				+ ", authorId=" + authorId + ", logo=" + logo + ", publisher=" + publisher + ", publishedOn="
 				+ publishedOn + ", update=" + update + ", content=" + content + ", active=" + active + "]";
 	}

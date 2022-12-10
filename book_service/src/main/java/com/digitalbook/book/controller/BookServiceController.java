@@ -88,7 +88,7 @@ public class BookServiceController {
 		}  catch ( SQLException e) {
 			e.printStackTrace();
 		}
-		return bookService.saveBook(blob, authorId, book);
+		return bookService.saveBook(blob, book, authorId);
 
 	}
 	
