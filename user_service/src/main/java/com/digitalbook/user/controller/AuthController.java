@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/digitalbooks")
 public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
@@ -69,6 +69,7 @@ public class AuthController {
 					.body(new MessageResponse("Error: Username & Email is already taken!"));
 		}
 			user.setPassword(encoder.encode(user.getPassword()));
+			userService.saveUser(user);
 			return ResponseEntity.ok(new MessageResponse("User registered successfully."));
 
 		}
