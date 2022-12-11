@@ -1,9 +1,15 @@
 <div id="app">
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <a href="#" class="navbar-brand">bezKoder</a>
+    <a href="#" class="navbar-brand">DigitalBook</a>
     <ul class="navbar-nav mr-auto" routerLinkActive="active">
       <li class="nav-item">
         <a href="/home" class="nav-link" routerLink="home">Home </a>
+      </li>
+      <li class="nav-item">
+        <a href="/searchbook" class="nav-link" routerLink="/searchbook">SearchBook </a>
+      </li>
+      <li class="nav-item">
+        <a href="/createbook" class="nav-link" routerLink="/createbook">CreateBook </a>
       </li>
       <li class="nav-item" *ngIf="showAdminBoard">
         <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>

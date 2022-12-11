@@ -70,6 +70,21 @@
           </div>
         </div>
       </div>
+      <div class ="form-role">
+        <label for="role">Role</label>
+        <input
+            type="radio"
+            name="role"
+            value="author"
+            [(ngModel)]="form.role"
+          /> Author
+          <input
+            type="radio"
+            name="role"
+            value="reader"
+            [(ngModel)]="form.role"
+            /> Reader
+      </div>
       <div class="form-group">
         <button class="btn btn-primary btn-block">Sign Up</button>
       </div>

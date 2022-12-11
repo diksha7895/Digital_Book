@@ -6,11 +6,12 @@ import { AuthService } from '../_services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   form: any = {
     username: null,
     email: null,
-    password: null
+    password: null,
+    role: null
   };
   isSuccessful = false;
   isSignUpFailed = false;
@@ -18,13 +19,13 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
-  ngOnInit(): void {
-  }
+
 
   onSubmit(): void {
-    const { username, email, password } = this.form;
-
-    this.authService.register(username, email, password).subscribe(
+    const { username, email, password, role } = this.form;
+    let roles = [];
+    roles.push(role)
+    this.authService.register(username, email, password, roles).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;

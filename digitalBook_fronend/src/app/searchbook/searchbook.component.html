@@ -1,0 +1,26 @@
+
+<div class="col-md-12">
+    <div class="card card-container">
+        <h2>Search Books</h2>
+            <form class="form" novalidate #f="ngForm" name="book">
+                <div class="form-group">
+                    <label for="BookTitle">Title :  </label> 
+                    <input [(ngModel)]="book.title" name="=title" #title='ngModel' placeholder="Enter title"><br/>
+                </div>
+                <div class="form-group">
+                    <label for="BookAuthor">Author :  </label> 
+                    <input [(ngModel)]="book.author" name="author" #author="ngModel" placeholder="Enter author name"><br/>
+                </div>
+                <div class="form-group">
+                    <label>Publisher :     </label> 
+                    <input [(ngModel)]="book.publisher" #publisher="ngModel" name="publisher" placeholder="Enter publisher"><br/>
+                </div>
+                <div class="form-group">
+                    <label>Released Date : </label>
+                    <input [(ngModel)]="book.date" #date="ngModel" name="date" placeholder="Enter released date"><br/>
+                </div>
+                <button >Search</button>
+
+            </form>
+    </div>
+</div>

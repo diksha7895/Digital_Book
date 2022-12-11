@@ -1,0 +1,38 @@
+
+<div class="col-md-12">
+    <div class="card card-container">
+        <h2>Create Books</h2>
+            <form class="form" novalidate #f="ngForm" name="createbook">
+                <div class="form-group">
+                    <label for="title">Title </label> 
+                    <input [(ngModel)]="createbook.title" name="=title" #title='ngModel' ><br/>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category  </label> 
+                    <input [(ngModel)]="createbook.category" name="=category" #title='ngModel' ><br/>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image </label> 
+                    <input [(ngModel)]="createbook.image" name="image" #author="ngModel" ><br/>
+                </div>
+                <div class="form-group">
+                    <label for="price">Price  </label> 
+                    <input [(ngModel)]="createbook.price" name="price" #author="ngModel" ><br/>
+                </div>
+                <div class="form-group">
+                    <label for="publisher">Publisher   </label> 
+                    <input [(ngModel)]="createbook.publisher" #publisher="ngModel" name="publisher" ><br/>
+                </div>
+                <div class="form-group">
+                    <label for="active">Active </label>
+                    <input [(ngModel)]="createbook.active" #date="ngModel" name="active" ><br/>
+                </div>
+                <div class="form-group">
+                    <label for="content">Content  </label> 
+                    <input [(ngModel)]="createbook.content" name="content" #author="ngModel" ><br/>
+                </div>
+                <button>Save</button>
+
+            </form>
+    </div>
+</div>
