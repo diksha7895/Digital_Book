@@ -23,7 +23,7 @@ import com.digitalbook.book.service.BookService;
 
 
 @RestController
-@RequestMapping("/digitalbook")
+@RequestMapping("/digitalbooks")
 public class BookServiceController {
 	
 	@Autowired

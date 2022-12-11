@@ -1,5 +1,7 @@
 package com.digitalbook.user.service;
 
+import java.sql.Blob;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,19 @@ public class UserService {
 		return userRepository.findByUserNameAndEmail(userName, email);
 	}
 	
-	
+	public Blob fetchBlob(byte[] logo) throws Exception{
+		Blob blob = null;
+		if(logo!=null) {
+			try {
+				blob = new javax.sql.rowset.serial.SerialBlob(logo);
+			}catch(Exception e) {
+				throw new Exception("Issue in book logo");
+			}
+			return blob;
+		}
+		else {
+			return blob;
+		}
+	}
 	
 }

@@ -13,12 +13,12 @@ import com.digitalbook.user.jwt.AuthRequest;
 import com.digitalbook.user.jwt.JwtResponse;
 import com.digitalbook.user.jwt.JwtUtils;
 import com.digitalbook.user.jwt.LoginRequest;
-import com.digitalbook.user.jwt.MessageResponse;
 import com.digitalbook.user.jwt.SignupRequest;
 import com.digitalbook.user.jwt.UserDetailsImpl;
 import com.digitalbook.user.model.Role;
 import com.digitalbook.user.model.User;
 import com.digitalbook.user.service.UserService;
+import com.digitalbooks.user.payload.response.MessageResponse;
 
 import java.util.HashSet;
 import java.util.List;
@@ -66,7 +66,7 @@ public class AuthController {
 			if(duplicateUser != null){
 			return ResponseEntity
 					.badRequest()
-					.body(new MessageResponse("Error: Username & Email is already taken!"));
+					.body(new MessageResponse("Error: Username & Email is already exist!"));
 		}
 			user.setPassword(encoder.encode(user.getPassword()));
 			userService.saveUser(user);
@@ -89,7 +89,7 @@ public class AuthController {
 						userDetails.getEmail(),role));
 				
 			}catch(Exception e) {
-				return ResponseEntity.badRequest().body(new MessageResponse("Invalid Username And Password"));
+				return ResponseEntity.badRequest().body(new com.digitalbooks.user.payload.response.MessageResponse("Invalid Username And Password"));
 		}
 	}
 		
