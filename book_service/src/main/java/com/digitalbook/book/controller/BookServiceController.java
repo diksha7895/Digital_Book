@@ -2,10 +2,12 @@ package com.digitalbook.book.controller;
 
 import java.sql.Blob;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +24,7 @@ import com.digitalbook.book.response.MessageResponse;
 import com.digitalbook.book.service.BookService;
 
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/digitalbooks")
 public class BookServiceController {
@@ -31,6 +34,11 @@ public class BookServiceController {
 	
 	@Autowired
 	BookService bookService;
+	
+	@GetMapping("/get")
+	public List<BookInfo> getBooks() {
+		return bookService.findAll();
+	}
 	
 	@GetMapping("/getBook/{bookId}")
 	public BookResponse getBookId(@PathVariable("bookId") int bookId) {
@@ -54,7 +62,7 @@ public class BookServiceController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("This book doesn't exist!"));
 		} else if (bookAndUser == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new MessageResponse("This book doesn't belong author!"));
+					.body(new MessageResponse("This book doesn't belong to author!"));
 
 		} else if (block.equalsIgnoreCase("yes") || block.equalsIgnoreCase("no") ) {
 			BookInfo savedBook = bookService.blockBook(bookId, block);

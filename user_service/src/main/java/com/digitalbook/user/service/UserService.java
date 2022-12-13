@@ -1,6 +1,7 @@
 package com.digitalbook.user.service;
 
 import java.sql.Blob;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,14 @@ public class UserService {
 	
 	public User duplicateUserNameAndEmail(String userName, String email) {
 		return userRepository.findByUserNameAndEmail(userName, email);
+	}
+	
+	public boolean checkAuthorExist(int authorId) {
+		Optional<User> user = userRepository.findById(authorId);
+		if(!user.isEmpty() && user.get().getRole().getId()==1) {
+			return true;
+		}
+		return false;
 	}
 	
 	public Blob fetchBlob(byte[] logo) throws Exception{

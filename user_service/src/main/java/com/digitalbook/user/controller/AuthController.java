@@ -3,12 +3,19 @@ package com.digitalbook.user.controller;
 import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.digitalbook.user.dto.BookWithByteFile;
+import com.digitalbook.user.dto.Books;
 import com.digitalbook.user.jwt.AuthRequest;
 import com.digitalbook.user.jwt.JwtResponse;
 import com.digitalbook.user.jwt.JwtUtils;
@@ -20,6 +27,7 @@ import com.digitalbook.user.model.User;
 import com.digitalbook.user.service.UserService;
 import com.digitalbooks.user.payload.response.MessageResponse;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,11 +47,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/digitalbooks")
 public class AuthController {
@@ -53,12 +62,18 @@ public class AuthController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	RestTemplate restTemplate;
 
 	@Autowired
 	PasswordEncoder encoder;
 
 	@Autowired
 	JwtUtils jwtUtils;
+
+	private byte[] byteslogo;
+	String bookUrl = "http://localhost:8081/digitalbooks/searchBook/";
+	String createBook= "http://localhost:8081/digitalbooks/author/";
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> signUp(@RequestBody User user) {
@@ -78,6 +93,7 @@ public class AuthController {
 		public ResponseEntity<?> generateToken(@RequestBody AuthRequest authReq, HttpServletResponse httpServletResp, HttpSession session) 
 				throws Exception {
 			try {
+				System.out.println("userName : "+authReq.getUserName()+"and Password"+authReq.getPwd());
 				Authentication authentication = authenticationManager.authenticate(new 
 						UsernamePasswordAuthenticationToken(authReq.getUserName(),authReq.getPwd()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -89,10 +105,39 @@ public class AuthController {
 						userDetails.getEmail(),role));
 				
 			}catch(Exception e) {
-				return ResponseEntity.badRequest().body(new com.digitalbooks.user.payload.response.MessageResponse("Invalid Username And Password"));
+				return ResponseEntity.badRequest().body(new MessageResponse("Invalid Username And Password"));
 		}
 	}
 		
+		@PostMapping(value="/author/{author-id}/books", consumes = { "application/json" })
+	    public ResponseEntity<?> saveBook(
+	    		@RequestBody Books book, 
+	    		@PathVariable("author-id") int authorId) throws IOException {
+			
+			boolean isUserAuthor = userService.checkAuthorExist(authorId);
+			if(isUserAuthor) {
+				byte[] bytes = this.byteslogo;
+				
+			
+				BookWithByteFile bookWithLogo = new BookWithByteFile();
+				bookWithLogo.setFile(bytes);
+				bookWithLogo.setBooks(book);
+
+				Books savedBook = restTemplate.postForObject(createBook+authorId, bookWithLogo, Books.class);
+
+				if(savedBook!=null) {
+					return ResponseEntity.ok(savedBook);	
+				}
+				else {
+			       return ResponseEntity.badRequest().body(new MessageResponse("Author has already a book with same Name"));
+				}
+				
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponse("User is either not present or user does not have author role"));
+			}
+				
+		}
 
 		
 	

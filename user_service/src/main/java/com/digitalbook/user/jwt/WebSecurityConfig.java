@@ -16,10 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-		// securedEnabled = true,
-		// jsr250Enabled = true,
-		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
@@ -61,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests()
-			.antMatchers("/**").permitAll()
+			.antMatchers("/digitalbooks/**").permitAll()
 			.antMatchers("/digitalbooks/signup").permitAll()
 			.anyRequest().authenticated();
 

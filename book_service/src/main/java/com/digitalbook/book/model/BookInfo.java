@@ -33,8 +33,11 @@ public class BookInfo {
 	@Column(name="Author")
 	private int authorId;
 	
-	@Lob
-	private Blob logo;
+//	@Lob
+//	private Blob logo;
+//	
+	@Column(name = "picByte", length = 1000)
+	private byte[] picByte;
 	
 	@Column(name="Publisher")
 	private String publisher;
@@ -91,12 +94,20 @@ public class BookInfo {
 		this.authorId = authorId;
 	}
 
-	public Blob getLogo() {
-		return logo;
+//	public Blob getLogo() {
+//		return logo;
+//	}
+//
+//	public void setLogo(Blob logo) {
+//		this.logo = logo;
+//	}
+	
+	public byte[] getPicByte() {
+		return picByte;
 	}
 
-	public void setLogo(Blob logo) {
-		this.logo = logo;
+	public void setPicByte(byte[] picByte) {
+		this.picByte = picByte;
 	}
 
 	public String getPublisher() {
@@ -144,7 +155,8 @@ public class BookInfo {
 	}
 	
 
-	public BookInfo(int bookId, String title, String category, double price, int authorId, Blob logo,
+	public BookInfo(int bookId, String title, String category, double price, int authorId,byte[] picByte,
+			//Blob logo,
 			String publisher, Date publishedOn, Date update, String content, boolean active) {
 		super();
 		this.id = bookId;
@@ -152,7 +164,8 @@ public class BookInfo {
 		this.category = category;
 		this.price = price;
 		this.authorId = authorId;
-		this.logo = logo;
+		//this.logo = logo;
+		this.picByte = picByte;
 		this.publisher = publisher;
 		this.publishedOn = publishedOn;
 		this.update = update;
@@ -163,7 +176,7 @@ public class BookInfo {
 	@Override
 	public String toString() {
 		return "BookInfo [bookId=" + id + ", title=" + title + ", category=" + category + ", price=" + price
-				+ ", authorId=" + authorId + ", logo=" + logo + ", publisher=" + publisher + ", publishedOn="
+				+ ", authorId=" + authorId + ", logo=" + picByte + ", publisher=" + publisher + ", publishedOn="
 				+ publishedOn + ", update=" + update + ", content=" + content + ", active=" + active + "]";
 	}
 	

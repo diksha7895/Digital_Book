@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -24,6 +25,7 @@ public class BookService {
 
 	@Autowired
 	private BookRepository bookRepo;
+	
 	
 	public BookResponse getBookById(int bookId) {
 		Optional<BookInfo> book = bookRepo.findById(bookId);
@@ -57,7 +59,7 @@ public class BookService {
 		Optional<BookInfo> existingBook = bookRepo.findByTitleAndAuthorId(book.getBooks().getTitle(),authorId);
 		if(existingBook.isEmpty()) { 
 			BookInfo bookToBeSaved = new BookInfo();
-			bookToBeSaved.setLogo(blob);
+			//bookToBeSaved.setLogo(blob);
 			bookToBeSaved.setActive(book.getBooks().isActive());
 			bookToBeSaved.setAuthorId(authorId);
 			bookToBeSaved.setCategory(book.getBooks().getCategory());
@@ -80,7 +82,7 @@ public class BookService {
 		if(!existingBookForUser.isEmpty()) {
 
 
-			existingBookForUser.get().setLogo(blob);
+			//existingBookForUser.get().setLogo(blob);
 			existingBookForUser.get().setTitle(book.getBooks().getTitle());
 			existingBookForUser.get().setPrice(book.getBooks().getPrice());
 			existingBookForUser.get().setPublisher(book.getBooks().getPublisher());
@@ -95,17 +97,17 @@ public class BookService {
 		
 	}
 	
-  public byte[] getSubscribedBookForLogo(int bookId) {
-
-		byte[] byteArray = null;
-		try {
-			Optional<BookInfo> book =	bookRepo.findById(bookId);
-			byteArray = book.isEmpty()? null : book.get().getLogo().getBytes(1,(int)book.get().getLogo().length());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return byteArray;
-	}
+//  public byte[] getSubscribedBookForLogo(int bookId) {
+//
+//		byte[] byteArray = null;
+//		try {
+//			Optional<BookInfo> book =	bookRepo.findById(bookId);
+//			byteArray = book.isEmpty()? null : book.get().getLogo().getBytes(1,(int)book.get().getLogo().length());
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return byteArray;
+//	}
 
 	public BookInfo getSubscribedBook(int bookId) {
 		Optional<BookInfo> book =	bookRepo.findById(bookId);
@@ -164,5 +166,10 @@ public class BookService {
 		
 		return savedBook;
 		
+	}
+
+	public List<BookInfo> findAll() {
+		// TODO Auto-generated method stub
+		return bookRepo.findAll();
 	}
 }
