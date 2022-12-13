@@ -2,37 +2,76 @@
 <div class="col-md-12">
     <div class="card card-container">
         <h2>Create Books</h2>
-            <form class="form" novalidate #f="ngForm" name="createbook">
+            <form class="form" (ngSubmit)="f.form.valid && onCreate()" #f="ngForm" *ngIf="!isSuccessful" name="createbook">
                 <div class="form-group">
                     <label for="title">Title </label> 
-                    <input [(ngModel)]="createbook.title" name="=title" #title='ngModel' ><br/>
+                    <input [(ngModel)]="createbook.title" type="text" class="form-control" minlength="5" 
+                        maxlength="20" name="=title" #title='ngModel' >
+                    <div class="alert-danger" *ngIf="title.errors && f.submitted">
+                        <div *ngIf="title.errors.required">Title is required</div>
+                        <div *ngIf="title.errors.minlength">Title must be at least 5 characters.</div>
+                        <div *ngIf="title.errors.maxlength">Title must be at most 20 characters.</div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="category">Category  </label> 
-                    <input [(ngModel)]="createbook.category" name="=category" #title='ngModel' ><br/>
+                    <input [(ngModel)]="createbook.category" type="text" class="form-control" name="=category"
+                        minlength="5" maxlength="20" #category='ngModel' >
+                
+                <div class="alert-danger" *ngIf="category.errors && f.submitted">
+                    <div *ngIf="category.errors.required">Category is required</div>
+                    <div *ngIf="category.errors.minlength">Category must be at least 5 characters.</div>
+                    <div *ngIf="category.errors.maxlength">Category must be at most 20 characters.</div>
+                </div>
                 </div>
                 <div class="form-group">
                     <label for="image">Image </label> 
-                    <input [(ngModel)]="createbook.image" name="image" #author="ngModel" ><br/>
+                    <input [(ngModel)]="createbook.image" name="image" #author="ngModel" >
                 </div>
                 <div class="form-group">
                     <label for="price">Price  </label> 
-                    <input [(ngModel)]="createbook.price" name="price" #author="ngModel" ><br/>
+                    <input [(ngModel)]="createbook.price" type="number" class="form-control" name="price"
+                    minlength="1" maxlength="7" #price="ngModel" >
+                    <div class="alert-danger" *ngIf="price.errors && f.submitted">
+                        <div *ngIf="price.errors.required">Price is required</div>
+                        <div *ngIf="price.errors.minlength">Price must contain single number</div>
+                        <div *ngIf="price.errors.maxlength">Price value is greater.</div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="publisher">Publisher   </label> 
-                    <input [(ngModel)]="createbook.publisher" #publisher="ngModel" name="publisher" ><br/>
+                    <label for="publisher">Publisher </label> 
+                    <input [(ngModel)]="createbook.publisher" type="text" class="form-control" 
+                        minlength="5" maxlength="20" #publisher="ngModel" name="publisher" >
+                
+                <div class="alert-danger" *ngIf="publisher.errors && f.submitted">
+                    <div *ngIf="publisher.errors.required">Publisher is required</div>
+                    <div *ngIf="publisher.errors.minlength">Publisher must be at least 5 characters.</div>
+                    <div *ngIf="publisher.errors.maxlength">Publisher must be at most 20 characters.</div>
+                </div>
                 </div>
                 <div class="form-group">
                     <label for="active">Active </label>
-                    <input [(ngModel)]="createbook.active" #date="ngModel" name="active" ><br/>
+                    <input [(ngModel)]="createbook.active" #date="ngModel" name="active" >
                 </div>
                 <div class="form-group">
-                    <label for="content">Content  </label> 
-                    <input [(ngModel)]="createbook.content" name="content" #author="ngModel" ><br/>
+                    <label for="content">Content </label> 
+                    <textarea [(ngModel)]="createbook.content" type="text" class="form-control" name="content"
+                        minlength="50" maxlength="2000"  #content="ngModel" ></textarea>
+                    <div class="alert-danger" *ngIf="content.errors && f.submitted">
+                        <div *ngIf="content.errors.required">Content is required</div>
+                        <div *ngIf="content.errors.minlength">Content must be at least 50 characters.</div>
+                        <div *ngIf="content.errors.maxlength">content must be at most 2000 characters.</div>
+                    </div>
                 </div>
-                <button>Save</button>
-
+                <div>
+                    <button class="btn btn-primary btn-block">Save</button>
+                </div>
+                <div class="alert alert-warning" *ngIf="f.submitted && !isSuccessful">
+                    Book has not created. {{ errorMessage }}
+                </div>
             </form>
+            <div class="alert alert-success" *ngIf="isSuccessful">
+                {{createbook.title}} has created successfully. {{ errorMessage }}
+            </div>
     </div>
 </div>

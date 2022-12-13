@@ -1,5 +1,5 @@
 
-<div class="col-md-12">
+<div class="col-md-12" *ngIf="!isSuccessful">
     <div class="card card-container">
         <h2>Search Books</h2>
             <form class="form" novalidate #f="ngForm" name="book">
@@ -8,19 +8,43 @@
                     <input [(ngModel)]="book.title" name="=title" #title='ngModel' placeholder="Enter title"><br/>
                 </div>
                 <div class="form-group">
+                    <label for="BookCategory">Category :  </label> 
+                    <input [(ngModel)]="book.category" name="=title" #title='ngModel' placeholder="Enter the category"><br/>
+                </div>
+                <div class="form-group">
                     <label for="BookAuthor">Author :  </label> 
                     <input [(ngModel)]="book.author" name="author" #author="ngModel" placeholder="Enter author name"><br/>
                 </div>
                 <div class="form-group">
-                    <label>Publisher :     </label> 
+                    <label for="BookPublisher">Publisher :     </label> 
                     <input [(ngModel)]="book.publisher" #publisher="ngModel" name="publisher" placeholder="Enter publisher"><br/>
                 </div>
                 <div class="form-group">
-                    <label>Released Date : </label>
+                    <label for="ReleaseDate">Released Date : </label>
                     <input [(ngModel)]="book.date" #date="ngModel" name="date" placeholder="Enter released date"><br/>
                 </div>
-                <button >Search</button>
+            <div class="form-group"><button class="btn btn-primary btn-block" (click)="searchBook()">Search</button>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="isSearchFailed">
+                Search Failed ... {{errorMessage}}
+            </div>
+            
+            <div class="allbooks" *ngIf="isSuccessful">
+                <h2>All Search Result</h2>
 
-            </form>
+                <div class="card">
+                    <img src="{{book.logo}}">
+                    <h5 class="title">{{book.title}}</h5>
+                    <p class="author">{{book.author}}</p>
+                    <p class="price">{{book.price}}</p>
+                    <div *ngIf="showReaderBoard"><button class="btn btn-primary btn-block" (click)="subscribeBook()">
+                        Subscribe</button></div>
+                </div>
+                <div class="alert alert-danger" role="alert" *ngIf="isSubscribeFailed">
+                    Your book subscription is failed ! {{errorMessage}}
+                </div>
+            </div>
+
+         </form>
     </div>
 </div>

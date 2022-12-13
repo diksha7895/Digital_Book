@@ -23,9 +23,9 @@ export class RegisterComponent {
 
   onSubmit(): void {
     const { username, email, password, role } = this.form;
-    let roles = [];
-    roles.push(role)
-    this.authService.register(username, email, password, roles).subscribe(
+    // let roles = [];
+    // roles.push(role)
+    this.authService.register(username, email, password, role).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;

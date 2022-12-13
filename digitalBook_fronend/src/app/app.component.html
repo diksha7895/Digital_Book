@@ -5,24 +5,24 @@
       <li class="nav-item">
         <a href="/home" class="nav-link" routerLink="home">Home </a>
       </li>
+      <!-- <li class="nav-item">
+        <a href="/allmybooks" class="nav-link" routerLink="allmybooks">AllMyBooks </a>
+      </li> -->
       <li class="nav-item">
-        <a href="/searchbook" class="nav-link" routerLink="/searchbook">SearchBook </a>
-      </li>
-      <li class="nav-item">
-        <a href="/createbook" class="nav-link" routerLink="/createbook">CreateBook </a>
-      </li>
-      <li class="nav-item" *ngIf="showAdminBoard">
-        <a href="/admin" class="nav-link" routerLink="admin">Admin Board</a>
-      </li>
-      <li class="nav-item" *ngIf="showModeratorBoard">
-        <a href="/mod" class="nav-link" routerLink="mod">Moderator Board</a>
+        <a href="/searchbook" class="nav-link" routerLink="searchbook">SearchBook </a>
       </li>
       <li class="nav-item">
-        <a href="/user" class="nav-link" *ngIf="isLoggedIn" routerLink="user">User</a>
+        <a href="/createbook" class="nav-link" routerLink="createbook">CreateBook </a>
       </li>
     </ul>
 
     <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li class="nav-item" *ngIf="showAuthorBoard">
+        <a href="/createBook" class="nav-link" routerLink="createBook">CreateBook</a>
+      </li>
+      <li class="nav-item" *ngIf="showReaderBoard">
+        <a href="/subscribeBook" class="nav-link" routerLink="createBook">SubscribeBook</a>
+      </li>
       <li class="nav-item">
         <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
       </li>
@@ -35,6 +35,12 @@
       <li class="nav-item">
         <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
       </li>
+      <!-- <li class="nav-item">
+        <a href="/createbook" class="nav-link" routerLink="createbook" *ngIf="isAuthor">CreateBook </a>
+      </li>
+      <li class="nav-item">
+        <a href="/allmybooks" class="nav-link" routerLink="allmybooks" *ngIf="!isAuthor">All My Books</a>
+      </li> -->
       <li class="nav-item">
         <a href class="nav-link" (click)="logout()">LogOut</a>
       </li>

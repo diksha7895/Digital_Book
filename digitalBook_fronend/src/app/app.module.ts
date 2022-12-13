@@ -9,13 +9,14 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
-import { BoardUserComponent } from './board-user/board-user.component';
+
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { SearchbookComponent } from './searchbook/searchbook.component';
 import { CreatebookComponent } from './createbook/createbook.component';
+import { AllmybooksComponent } from './allmybooks/allmybooks.component';
+import { BookinfoComponent } from './bookinfo/bookinfo.component';
+
 
 @NgModule({
   declarations: [
@@ -24,11 +25,11 @@ import { CreatebookComponent } from './createbook/createbook.component';
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
-    BoardAdminComponent,
-    BoardModeratorComponent,
-    BoardUserComponent,
     SearchbookComponent,
-    CreatebookComponent
+    CreatebookComponent,
+    AllmybooksComponent,
+    BookinfoComponent
+  
   ],
   imports: [
     BrowserModule,

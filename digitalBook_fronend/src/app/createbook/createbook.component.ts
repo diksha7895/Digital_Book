@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthorService } from '../_services/author.service';
 
 @Component({
   selector: 'app-createbook',
   templateUrl: './createbook.component.html',
   styleUrls: ['./createbook.component.css']
 })
-export class CreatebookComponent implements OnInit {
+export class CreatebookComponent {
 
+  isSuccessful = false;
+  errorMessage = "";
   createbook : any ={
     title : '',
     category : '',
@@ -16,9 +19,19 @@ export class CreatebookComponent implements OnInit {
     active : '',
     content : ''
   };
-  constructor() { }
+  constructor(private authorService : AuthorService) { }
 
-  ngOnInit(): void {
+  onCreate(){
+    const{title,category,image,price,publisher,content} = this.createbook;
+    this.authorService.createBook(this.createbook).subscribe(data=>{
+      console.log(data.message);
+      this.isSuccessful=true;
+    },
+    error=>{
+      console.error(error);
+      this.errorMessage = error.error;
+      this.isSuccessful = false;
+    })
   }
 
 }

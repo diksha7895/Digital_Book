@@ -6,12 +6,18 @@ import { UserService } from '../_services/user.service';
   templateUrl: './board-user.component.html',
   styleUrls: ['./board-user.component.css']
 })
-export class BoardUserComponent implements OnInit {
+export class BoardUserComponent  {
   content?: string;
+  user : any = {
+    id: '',
+    username: '',
+    email: '',
+    role: '',
+  };
 
   constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
+  /*ngOnInit(): void {
     this.userService.getUserBoard().subscribe(
       data => {
         this.content = data;
@@ -20,5 +26,5 @@ export class BoardUserComponent implements OnInit {
         this.content = JSON.parse(err.error).message;
       }
     );
-  }
+  }*/
 }
