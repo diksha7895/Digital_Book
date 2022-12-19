@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const API_URL = 'http://localhost:8081/digitalbooks';
@@ -21,7 +21,7 @@ export class UserService {
     this.flag=true;
     if(search.title!=""){
         if(this.flag){
-          this.queryParam = '?';
+         // this.queryParam='?';
         }else{
           this.queryParam +='&';
         }
@@ -36,14 +36,23 @@ export class UserService {
 
 
   }
-  subscribeBook(){
-    //need to be implemented
+  subscribeBook(reader : string | undefined, bookId : number){
+    const httpOptions = {
+      headers : new HttpHeaders({'Content-Type' : 'application/json'})
+    };
+    let url = bookId+'/subscribe';
+    return this.http.post(API_URL+url,{
+      bookId,
+      reader
+    },httpOptions);
+    
   }
 
   getAllSubscribedBooks(id : any) : Observable<any> {
     return this.http.get(API_URL + '/reader/'+id+'/books');
   }
 
+  
   getBooksCreatedByAuthor(id : any): Observable<any> {
     return this.http.get(API_URL + '/author/'+id+'/getAllBooks');
   }

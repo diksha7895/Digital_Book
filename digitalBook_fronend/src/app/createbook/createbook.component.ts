@@ -10,6 +10,8 @@ export class CreatebookComponent {
 
   isSuccessful = false;
   errorMessage = "";
+  isCreateBookFailed=false;
+  isLoggedIn=false;
   createbook : any ={
     title : '',
     category : '',

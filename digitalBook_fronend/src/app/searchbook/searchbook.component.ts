@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UserService } from '../_services/user.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-searchbook',
@@ -23,12 +24,13 @@ export class SearchbookComponent implements OnInit    {
   showReaderBoard=false;
   roles: string[] = [];
   content?:string;
-  searchList?:Book[];
+  searchList?:Books[];
   isLoggedIn=false;
   showAuthorBoard=false;
   username?: string;
+  subscribedId: number;
 
-  constructor(private userService: UserService, private tokenStorage : TokenStorageService) { }
+  constructor(private userService: UserService, private tokenStorage : TokenStorageService, private router : Router) { }
   
 
    ngOnInit(): void {
@@ -64,6 +66,31 @@ export class SearchbookComponent implements OnInit    {
      )
    }
 
+   subscribeBook(book_id : number):void{
+     this.subscribedId=book_id;
+     this.userService.subscribeBook(this.username,book_id).subscribe(
+       data => {
+         console.log(data);
+         this.isSubscribeFailed=false;
+         this.router.navigate(['/subscribedBooks']);
+       },
+       err => {
+         this.isSubscribeFailed=true;
+         this.errorMessage=err.error.errorMessage;
+         console.log(this.errorMessage);
+       }
+     );
+
+   }
 
   
+}
+export interface Books{
+  id:number;
+  category:string;
+  title:string;
+  author:string;
+  publisher:string;
+  price:number;
+  logo:string;
 }

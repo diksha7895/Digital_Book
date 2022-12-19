@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
@@ -6,7 +7,7 @@ import { AuthService } from '../_services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   form: any = {
     username: null,
     email: null,
@@ -16,15 +17,21 @@ export class RegisterComponent {
   isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
+  role='';
 
   constructor(private authService: AuthService) { }
+   
+  ngOnInit() : void{
 
+  }
 
 
   onSubmit(): void {
     const { username, email, password, role } = this.form;
     // let roles = [];
     // roles.push(role)
+   // let rolename:string=this.role.value==1?"reader":"author";
+   //let roles:new Role(this.f['role'].value,)
     this.authService.register(username, email, password, role).subscribe(
       data => {
         console.log(data);

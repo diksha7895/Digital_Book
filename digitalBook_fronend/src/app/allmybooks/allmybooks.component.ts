@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../_model/book';
+import { Book } from '../_model/book.model';
 import { HttpClientService } from '../_services/http-client-service.service';
 
 @Component({

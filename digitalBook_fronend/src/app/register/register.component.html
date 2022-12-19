@@ -76,18 +76,20 @@
           <input
               type="radio"
               name="role"
-              value="author"
+              id="1"
+              value="1"
               [(ngModel)]="form.role" required
               #role="ngModel"
-            /> Author</div>
+            /> Reader</div>
           <div class="role">
               <input
                 type="radio"
                 name="role"
-                value="reader"
+                id="2"
+                value="2"
                 [(ngModel)]="form.role" required
                 #role="ngModel"
-                /> Reader</div>
+                /> Author</div>
           <div class="alert-danger" *ngIf="role.errors && f.submitted">
                   <div *ngIf="role.errors.required">Please select role</div>
                 </div>

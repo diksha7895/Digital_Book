@@ -37,7 +37,7 @@
                     <h5 class="title">{{book.title}}</h5>
                     <p class="author">{{book.author}}</p>
                     <p class="price">{{book.price}}</p>
-                    <div *ngIf="showReaderBoard"><button class="btn btn-primary btn-block" (click)="subscribeBook()">
+                    <div *ngIf="showReaderBoard"><button class="btn btn-primary btn-block" (click)="subscribeBook(book.id)">
                         Subscribe</button></div>
                 </div>
                 <div class="alert alert-danger" role="alert" *ngIf="isSubscribeFailed">
