@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 
 
@@ -26,16 +27,19 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="userid", nullable = false, unique = true, length = 20)
+	@Column(name="userid")
 	private int id;
 	
-	@Column(name="username", nullable = false, length = 40)
+	@NotNull
+	@Column(name="username")
 	private String userName;
 	
-	@Column(name="password",nullable = false)
+	@NotNull
+	@Column(name="password")
 	private String password;
 	
-	@Column(name="email",nullable = false, unique = true, length = 45)
+	@NotNull
+	@Column(name="email")
 	private String email;
 	
 	@OneToOne(fetch = FetchType.EAGER)

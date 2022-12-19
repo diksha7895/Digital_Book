@@ -55,17 +55,17 @@ public class UserAuthControllerTest {
 		
 	}
 	
-	@Test
-	void testSearchBook() throws Exception{
-		RestTemplate restTemplate = new RestTemplate();
-		double price = 345;
-		final String url = "http://localhost:8081/digitalbooks/searchBook/Novel/HarryPotter/1/"+price+"/Rowling";
-		URI newurl =new URI(url);
-		
-		BookInfo data = restTemplate.getForObject(newurl, BookInfo.class);
-		Assert.assertNotNull(data);
-		
-		
-	}
+//	@Test
+//	void testSearchBook() throws Exception{
+//		RestTemplate restTemplate = new RestTemplate();
+//		double price = 345;
+//		final String url = "http://localhost:8081/digitalbooks/searchBook/Novel/HarryPotter/1/"+price+"/Rowling";
+//		URI newurl =new URI(url);
+//		
+//		BookInfo data = restTemplate.getForObject(newurl, BookInfo.class);
+//		Assert.assertNotNull(data);
+//		
+//		
+//	}
 
 }

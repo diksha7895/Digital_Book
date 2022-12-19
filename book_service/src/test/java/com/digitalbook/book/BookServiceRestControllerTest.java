@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest(webEnvironment=WebEnvironment.MOCK)
 public class BookServiceRestControllerTest {
-	
+/*	
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 
@@ -70,7 +70,7 @@ public class BookServiceRestControllerTest {
 		books.setTitle("title");
 		books.setAuthorId(11);
 		books.setPrice(550);
-		books.setLogo(null);
+	//	books.setLogo(null);
 		books.setPublisher("Chetan Bhagat");
 		books.setPublishedOn(new Date());
 		books.setContent("abcdefghijklm");
@@ -113,7 +113,7 @@ public class BookServiceRestControllerTest {
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.content").value("abcdefghijklm"));
 		
-	}*/
+	}
 
 	private static String asJsonString(final Object o ) {
 			try {
@@ -122,4 +122,5 @@ public class BookServiceRestControllerTest {
 			throw new RuntimeException(e);
 		}
 	}
+	*/
 }
