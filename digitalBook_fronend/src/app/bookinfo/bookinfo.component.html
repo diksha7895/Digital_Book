@@ -1,5 +1,37 @@
-<div class="book-container">
-    <div class="img-container">
-        <img src="https://m.media-amazon.com/images/I/710ESoXqVPL.jpg">
+<div class="container">
+    <div class="book-container">
+        <div class="book-info-container">
+            <img src="{{book.logo}}" alt="" width="250px" height="200px">
+        </div>
+        <div class="book-info-container">
+            <div class="book-info">
+                <p>Title :</p>
+                <b>{{book.title}}</b>
+            </div>
+            <div class="book-info">
+                <p>Category :</p>
+                <b>{{book.category}}</b>
+            </div>
+            <div class="book-info">
+                <p>Author :</p>
+                <b>{{book.author}}</b>
+            </div>
+            <div class="book-info">
+                <p>Price :</p>
+                <b>{{book.price}}</b>
+            </div>
+            <div class="book-info">
+                <p>Publisher :</p>
+                <b>{{book.publisher}}</b>
+            </div>
+            <div class="book-info">
+                <p>Published Date: </p>
+                <b>{{book.publishedDate}}</b>  
+            </div> 
+        </div>
+    </div>
+    <div class="book-content">
+        <p>Content :</p>
+        <b>{{book.content}}</b>
     </div>
 </div>

@@ -1,26 +1,26 @@
-<p>allmybooks works!</p>
-<div class="container row">
-  <div class="col-md-6">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Book Name</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let book of books">
-          <td>{{book.id}}</td>
-          <td>{{book.name}}</td>
-          <td>
-            <button type="button" class="btn btn-primary" (click)="(book.id)">Show Details</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="allmybooks-container" ng-app="books App" ng-controller="books controller">
+  <h5 *ngIf="isBooksAvailable">Books created by {{user.username}}</h5>
+  <div class="alert alert-warning" *ngIf="showNoBookAuthor">
+    {{user.username}} haven't created any books.
   </div>
-  <div class="col-md-6">
-    View Book Details/Add Book
+  <div class="alert alert-success" *ngIf="showSuccess">
+    {{successMessage}}
   </div>
-</div>
+  <div class="alert alert-error" *ngIf="showErrorMessage">
+    {{errorMessage}}
+  </div>
+    <div class="book-container" *ngFor="let book of books">
+      <div class="book-item">
+          <div class="book-details-container"  (click)="onClick(book)" [routerLink]="['/book', book.id]">
+            <img src="{{book.logo}}" alt="" width="150" height="180">
+            <br>
+            <p class = "book-title">{{book.title}}</p>
+          </div>
+          <div class="book-button-container">
+            <button class="button" (click)="onUpdate(book)" [routerLink]="['/updateBook']">Update</button>
+            <button class="button" (click)="onBlock(book.id)" *ngIf="book.active">Block</button>
+            <button class="button" (click)="onUnblock(book.id)" *ngIf="!book.active">Unblock</button>
+          </div>
+        </div>
+    </div>
+  </div>

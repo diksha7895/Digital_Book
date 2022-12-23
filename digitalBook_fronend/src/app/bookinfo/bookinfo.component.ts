@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Book, BookstorageService } from '../_services/bookstorage.service';
+
 
 @Component({
   selector: 'app-bookinfo',
@@ -7,11 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookinfoComponent implements OnInit {
 
+   book : any;
    
 
-  constructor() { }
+  constructor(private bookService: BookstorageService) { }
 
-  ngOnInit(): void {
+  ngOnInit():void{
+    this.book = this.bookService.getBook();
+    console.log("book info : " +this.book);
   }
 
+  // ngOnInit() {
+  //   this.httpClientService.getBooks().subscribe(response => this.handleSuccessfulResponse(response));
+  // }
+
+  // handleSuccessfulResponse(response: Book[]){
+  //   this.books=response;
+  // }
 }

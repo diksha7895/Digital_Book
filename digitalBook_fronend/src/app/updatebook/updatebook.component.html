@@ -1,0 +1,69 @@
+<div class="update-book">
+    <div class="book-details book">
+        <form name="form" name="book" (ngSubmit)="f.form.valid && onUpdate()" #f="ngForm" *ngIf="!isSuccessful">
+            <div class="form-group">
+                <label for="title">Title </label> 
+                <input [(ngModel)]="book.title" type="text" class="form-control" minlength="5" 
+                    maxlength="20" name="=title" #title='ngModel' >
+                <div class="alert-danger" *ngIf="title.errors && f.submitted">
+                    <div *ngIf="title.errors.required">Title is required</div>
+                    <div *ngIf="title.errors.minlength">Title must be at least 5 characters.</div>
+                    <div *ngIf="title.errors.maxlength">Title must be at most 20 characters.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="category">Category  </label> 
+                <input [(ngModel)]="book.category" type="text" class="form-control" name="=category"
+                    minlength="5" maxlength="20" #category='ngModel' >
+            
+                <div class="alert-danger" *ngIf="category.errors && f.submitted">
+                    <div *ngIf="category.errors.required">Category is required</div>
+                    <div *ngIf="category.errors.minlength">Category must be at least 5 characters.</div>
+                    <div *ngIf="category.errors.maxlength">Category must be at most 20 characters.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="price">Price  </label> 
+                <input [(ngModel)]="book.price" type="number" class="form-control" name="price"
+                     minlength="1" maxlength="7" #price="ngModel" >
+                <div class="alert-danger" *ngIf="price.errors && f.submitted">
+                    <div *ngIf="price.errors.required">Price is required</div>
+                    <div *ngIf="price.errors.minlength">Price must contain single number</div>
+                    <div *ngIf="price.errors.maxlength">Price value is greater.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="publisher">Publisher </label> 
+                <input [(ngModel)]="book.publisher" type="text" class="form-control" 
+                    minlength="5" maxlength="20" #publisher="ngModel" name="publisher" >
+            
+                 <div class="alert-danger" *ngIf="publisher.errors && f.submitted">
+                    <div *ngIf="publisher.errors.required">Publisher is required</div>
+                    <div *ngIf="publisher.errors.minlength">Publisher must be at least 5 characters.</div>
+                    <div *ngIf="publisher.errors.maxlength">Publisher must be at most 20 characters.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                    <label for="content">Content </label> 
+                    <textarea [(ngModel)]="book.content" type="text" class="form-control" name="content"
+                        minlength="50" maxlength="2000"  #content="ngModel" ></textarea>
+                <div class="alert-danger" *ngIf="content.errors && f.submitted">
+                    <div *ngIf="content.errors.required">Content is required</div>
+                    <div *ngIf="content.errors.minlength">Content must be at least 50 characters.</div>
+                    <div *ngIf="content.errors.maxlength">content must be at most 2000 characters.</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary btn-block">Update Book</button>
+            </div>
+          
+            <div class="alert alert-warning" *ngIf="f.submitted && !isSuccessful">
+                  Book updation failed!<br />{{ errorMessage }}
+            </div>
+        </form>
+    </div>
+    <div class="alert alert-success" *ngIf="isSuccessful">
+        Book {{book.title}} updated successfully.
+    </div>
+</div>

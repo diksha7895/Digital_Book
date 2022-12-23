@@ -1,60 +1,79 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TokenStorageService } from './token-storage.service';
 
 const API_URL = 'http://localhost:8081/digitalbooks';
+//const API_URL = 'https://c28vjkwqe3.execute-api.ap-northeast-1.amazonaws.com/UAT'; //for AWS
+
+const headers = new HttpHeaders({'Content-Type' : 'application/json',
+'Access-Control-Allow-Origin' : "*"});
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  queryParam: "";
-  flag=true;
   
   getPublicContent() {
     throw new Error('Method not implemented.');
   }
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private tokenStorageService : TokenStorageService) { }
 
-  getSearchBookResult(search : any) : Observable<any> {
-    this.queryParam="";
-    this.flag=true;
-    if(search.title!=""){
-        if(this.flag){
-         // this.queryParam='?';
-        }else{
-          this.queryParam +='&';
-        }
-      this.queryParam +='title='+search.category;
-        this.flag=false;
-    }
-    // let query = new HttpParams();
-    // query = query.append("category",category).append("title",title).append("author",author)
-    //         .append("price",price).append("publisher",publisher);
-
-        return this.http.get(API_URL + 'search' + this.queryParam,{responseType : 'text'});
-
-
+ search(category : any,title : any,author : any) : Observable<any> {
+     let queryParams = new HttpParams();
+     queryParams = queryParams.append("category",category).append("title",title)
+                    .append("author",author);
+      return this.http.get(API_URL+'/search',{headers,params:queryParams});
   }
-  subscribeBook(reader : string | undefined, bookId : number){
-    const httpOptions = {
-      headers : new HttpHeaders({'Content-Type' : 'application/json'})
-    };
-    let url = bookId+'/subscribe';
-    return this.http.post(API_URL+url,{
-      bookId,
-      reader
-    },httpOptions);
+
+  getSubscribedBook(id: any) : Observable<any> { 
+    return this.http.get(API_URL + '/readers/'+id+'/books',{headers});
+  }
+
+  subscribeBook(bookid:any, userId:any): Observable<any> { 
+    return this.http.post(API_URL +"/"+bookid+'/subscribe', {
+      bookId: bookid,
+      userId: userId
+    },{headers});
+  }
+    
+  
+  getAllSubscribedBooks(id: any) : Observable<any> { 
+    return this.http.get(API_URL + '/readers/'+id+'/books',{headers});
+  }
+
+  cancelSubscription(subId:number, userId:any): Observable<any>  {
+    return this.http.post(API_URL +"/readers/"+userId+"/books/"+subId+"/cancel-subscription",null,{headers});
     
   }
 
-  getAllSubscribedBooks(id : any) : Observable<any> {
-    return this.http.get(API_URL + '/reader/'+id+'/books');
-  }
+  // getAllSubscribedBooks(id : any) : Observable<any> {
+  //   return this.http.get(API_URL + '/reader/'+id+'/books');
+  // }
 
   
-  getBooksCreatedByAuthor(id : any): Observable<any> {
-    return this.http.get(API_URL + '/author/'+id+'/getAllBooks');
+  // getBooksCreatedByAuthor(id : any): Observable<any> {
+  //   return this.http.get(API_URL + '/author/'+id+'/getAllBooks');
+  // }
+
+  verifyIfLessThan24Hrs(bookId: any) : boolean{
+    var currentTimestamp = Date.now();
+    var twentyFourHours = 24 * 60 * 60 * 1000;
+   
+    let user = this.tokenStorageService.getUser();
+    let subs =  user.subscriptions;
+    for(let sub of subs){
+      let subscriptionTimeStamp = Date.parse(sub.subscriptionTime);
+      
+      if(bookId === sub.bookId){
+        if((currentTimestamp - subscriptionTimeStamp) > twentyFourHours){
+          return false;
+        }
+
+      }
+    }
+    return true;
   }
 
 }
+

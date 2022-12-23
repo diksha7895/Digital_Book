@@ -11,8 +11,10 @@ export class AppComponent implements OnInit {
   private roles: string[] = [];
   isLoggedIn = false;
   showReaderBoard = false;
+  showModeratorBoard = false;
   showAuthorBoard = false;
   username?: string;
+  isAuthor=false;
  
 
   constructor(private tokenStorageService: TokenStorageService) { }
@@ -24,9 +26,12 @@ export class AppComponent implements OnInit {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
       this.username = user.username;
+      if(this.roles[1]==='AUTHOR'){
+        this.isAuthor=true;
+      }
       
-      this.showReaderBoard = this.roles.includes('READER');
-      this.showAuthorBoard = this.roles.includes('AUTHOR');
+      // this.showReaderBoard = this.roles.includes('READER');
+      // this.showAuthorBoard = this.roles.includes('AUTHOR');
     
     }
   }

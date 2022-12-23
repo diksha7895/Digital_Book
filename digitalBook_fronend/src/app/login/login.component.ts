@@ -20,10 +20,22 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService,private router:Router) { }
 
+  // ngOnInit(): void {
+  //   if (this.tokenStorage.getToken()) {
+  //     this.isLoggedIn = true;
+  //     this.roles = this.tokenStorage.getUser().roles;
+  //   }
+  // }
+
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
+      if("ROLE_READER" === this.roles[0]) {
+        this.router.navigateByUrl('/user');
+      } else if("ROLE_AUTHOR" === this.roles[0]){
+        this.router.navigateByUrl('/home');   
+      }
     }
   }
 
@@ -38,9 +50,10 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
-        this.router.navigate(['/home']).then(() =>{
+       // this.router.navigate(['/home']).then(() =>{
+        // this.reloadPage();
+        // });
         this.reloadPage();
-        });
       },
       err => {
         this.errorMessage = err.error.message;

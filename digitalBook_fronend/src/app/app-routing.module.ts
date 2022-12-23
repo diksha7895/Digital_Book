@@ -7,20 +7,24 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BoardUserComponent } from './board-user/board-user.component';
 import { SearchbookComponent } from './searchbook/searchbook.component';
-//import { CreatebookComponent } from './createbook/createbook.component';
-//import { AllmybooksComponent } from './allmybooks/allmybooks.component';
-//import { BookinfoComponent } from './bookinfo/bookinfo.component';
+import { BookinfoComponent } from './bookinfo/bookinfo.component';
+import { CreatebookComponent } from './createbook/createbook.component';
+import { AllmybooksComponent } from './allmybooks/allmybooks.component';
+import { UpdatebookComponent } from './updatebook/updatebook.component';
+
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'searchbook', component: SearchbookComponent },
-  //{ path: 'createbook', component: CreatebookComponent},
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
- { path: 'user', component: BoardUserComponent },
-  // { path: 'allmybooks', component: AllmybooksComponent},
-  // { path: 'bookinfo/:id', component: BookinfoComponent},
+  { path: 'register', component: RegisterComponent },
+  { path: 'searchbook', component: SearchbookComponent },
+  { path: 'createbook', component: CreatebookComponent},
+  { path: 'updatebook', component: UpdatebookComponent },
+  { path: 'user', component: BoardUserComponent },
+  { path: 'allmybooks', component: AllmybooksComponent},
+  { path: 'bookinfo/:id', component: BookinfoComponent},
  
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];

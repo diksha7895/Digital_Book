@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <label for="title">Title </label> 
                     <input [(ngModel)]="createbook.title" type="text" class="form-control" minlength="5" 
-                        maxlength="20" name="=title" #title='ngModel' >
+                        maxlength="20" name="=title" #title='ngModel' required>
                     <div class="alert-danger" *ngIf="title.errors && f.submitted">
                         <div *ngIf="title.errors.required">Title is required</div>
                         <div *ngIf="title.errors.minlength">Title must be at least 5 characters.</div>
@@ -16,7 +16,7 @@
                 <div class="form-group">
                     <label for="category">Category  </label> 
                     <input [(ngModel)]="createbook.category" type="text" class="form-control" name="=category"
-                        minlength="5" maxlength="20" #category='ngModel' >
+                        minlength="5" maxlength="20" #category='ngModel' required >
                 
                 <div class="alert-danger" *ngIf="category.errors && f.submitted">
                     <div *ngIf="category.errors.required">Category is required</div>
@@ -25,13 +25,9 @@
                 </div>
                 </div>
                 <div class="form-group">
-                    <label for="image">Image </label> 
-                    <input [(ngModel)]="createbook.image" name="image" #author="ngModel" >
-                </div>
-                <div class="form-group">
                     <label for="price">Price  </label> 
                     <input [(ngModel)]="createbook.price" type="number" class="form-control" name="price"
-                    minlength="1" maxlength="7" #price="ngModel" >
+                    minlength="1" maxlength="7" #price="ngModel" required>
                     <div class="alert-danger" *ngIf="price.errors && f.submitted">
                         <div *ngIf="price.errors.required">Price is required</div>
                         <div *ngIf="price.errors.minlength">Price must contain single number</div>
@@ -41,7 +37,7 @@
                 <div class="form-group">
                     <label for="publisher">Publisher </label> 
                     <input [(ngModel)]="createbook.publisher" type="text" class="form-control" 
-                        minlength="5" maxlength="20" #publisher="ngModel" name="publisher" >
+                        minlength="5" maxlength="20" #publisher="ngModel" name="publisher" required >
                 
                 <div class="alert-danger" *ngIf="publisher.errors && f.submitted">
                     <div *ngIf="publisher.errors.required">Publisher is required</div>
@@ -50,28 +46,31 @@
                 </div>
                 </div>
                 <div class="form-group">
-                    <label for="active">Active </label>
-                    <input [(ngModel)]="createbook.active" #date="ngModel" name="active" >
-                </div>
-                <div class="form-group">
                     <label for="content">Content </label> 
                     <textarea [(ngModel)]="createbook.content" type="text" class="form-control" name="content"
-                        minlength="50" maxlength="2000"  #content="ngModel" ></textarea>
+                        minlength="50" maxlength="2000"  #content="ngModel" required ></textarea>
                     <div class="alert-danger" *ngIf="content.errors && f.submitted">
                         <div *ngIf="content.errors.required">Content is required</div>
                         <div *ngIf="content.errors.minlength">Content must be at least 50 characters.</div>
                         <div *ngIf="content.errors.maxlength">content must be at most 2000 characters.</div>
                     </div>
                 </div>
-                <div>
-                    <button class="btn btn-primary btn-block">Save</button>
+                <div class="form-group">
+                    <input type="checkbox" name="logo" (click)="showLogo()"/>Logo url
+                    <div *ngIf="logo">
+                        <label for="logo">Logo</label>
+                        <input type="text" class="form-control" name="logo" [(ngModel)]="createbook.logo" #logo="ngModel" required/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Create Book</button>
                 </div>
                 <div class="alert alert-warning" *ngIf="f.submitted && !isSuccessful">
                     Book has not created. {{ errorMessage }}
                 </div>
             </form>
             <div class="alert alert-success" *ngIf="isSuccessful">
-                {{createbook.title}} has created successfully. {{ errorMessage }}
+                Book {{createbook.title}} has created successfully. {{ errorMessage }}
             </div>
     </div>
 </div>

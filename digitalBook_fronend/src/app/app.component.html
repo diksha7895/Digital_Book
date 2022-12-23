@@ -5,6 +5,8 @@
       <li class="nav-item">
         <a href="/home" class="nav-link" routerLink="home">Home </a>
       </li>
+     
+  
       <!-- <li class="nav-item">
         <a href="/allmybooks" class="nav-link" routerLink="allmybooks">AllMyBooks </a>
       </li> -->
@@ -14,9 +16,9 @@
       <li class="nav-item">
         <a href="/createbook" class="nav-link" routerLink="createbook">CreateBook </a>
       </li>
-    </ul>
+    </ul> 
 
-    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+    <!-- <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
       <li class="nav-item" *ngIf="showAuthorBoard">
         <a href="/createBook" class="nav-link" routerLink="createBook">CreateBook</a>
       </li>
@@ -29,22 +31,46 @@
       <li class="nav-item">
         <a href="/login" class="nav-link" routerLink="login">Login</a>
       </li>
+    </ul> -->
+
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
     </ul>
 
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
       <li class="nav-item">
-        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+        <a href="/user" class="nav-link" routerLink="user">{{ username }}</a>
       </li>
-      <!-- <li class="nav-item">
+       <li class="nav-item">
         <a href="/createbook" class="nav-link" routerLink="createbook" *ngIf="isAuthor">CreateBook </a>
       </li>
       <li class="nav-item">
-        <a href="/allmybooks" class="nav-link" routerLink="allmybooks" *ngIf="!isAuthor">All My Books</a>
-      </li> -->
+        <a href="/allmybooks" class="nav-link" routerLink="allmybooks" *ngIf="isAuthor">All My Books</a>
+      </li> 
       <li class="nav-item">
         <a href class="nav-link" (click)="logout()">LogOut</a>
       </li>
     </ul>
+
+    <!-- <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+      </li>
+       <li class="nav-item">
+        <a href="/createbook" class="nav-link" routerLink="createbook" *ngIf="isAuthor">CreateBook </a>
+      </li>
+      <li class="nav-item">
+        <a href="/allmybooks" class="nav-link" routerLink="allmybooks" *ngIf="isAuthor">All My Books</a>
+      </li> 
+      <li class="nav-item">
+        <a href class="nav-link" (click)="logout()">LogOut</a>
+      </li>
+    </ul> -->
   </nav>
 
   <div class="container">

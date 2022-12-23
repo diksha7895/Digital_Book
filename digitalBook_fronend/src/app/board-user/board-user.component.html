@@ -1,5 +1,26 @@
-<div class="container">
-  <header class="jumbotron">
-    <p>{{ content }}</p>
-  </header>
+<div class="container" ng-app="Subscriptions App" ng-controller="Subscriptions controller">
+  <div class="user-details">
+
+    <h5><b>User name:</b> &nbsp; {{user.username}}</h5>
+    <h5><b>Email Id:</b> &nbsp; {{user.email}}</h5>
+    
+
+  </div>
+  <div class="alert alert-success" *ngIf="isSuccessful">
+    {{successMessage}}
+  </div>
+  <div class="alert alert-warning" *ngIf="noActiveSubscriptions">
+    No subscribtions available
+  </div>
+  <h3 *ngIf="activeSubscriptions"> Active subscriptions</h3>
+    <div class="book-container" *ngFor="let book of books">
+        <div class="book-details-container"  (click)="onClick(book)" [routerLink]="['/book', book.id]">
+          <img src="{{book.logo}}" alt="" width="150" height="180">
+          <br>
+          <p class="book-title"><b>Title: </b>{{book.title}}</p>
+        </div>
+        <div *ngIf="verifyIfLessThan24Hrs(book.id)">
+          <button class="btn btn-primary btn-block" (click)="onCancelSubscription(book.id)">Cancel </button>
+        </div>
+    </div>
 </div>

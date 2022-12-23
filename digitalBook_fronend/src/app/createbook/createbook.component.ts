@@ -10,30 +10,37 @@ export class CreatebookComponent {
 
   isSuccessful = false;
   errorMessage = "";
-  isCreateBookFailed=false;
+  logo=false;
+  
   isLoggedIn=false;
   createbook : any ={
-    title : '',
-    category : '',
-    image : '',
-    price : '',
-    publisher : '',
-    active : '',
-    content : ''
+    title : null,
+    category : null,
+    price : null,
+    publisher : null,
+    content : null,
+    logo : null
   };
   constructor(private authorService : AuthorService) { }
 
+  showLogo(){
+    if(this.logo === true)
+      this.logo = false;
+    else
+      this.logo=true;
+  }
+
   onCreate(){
-    const{title,category,image,price,publisher,content} = this.createbook;
-    this.authorService.createBook(this.createbook).subscribe(data=>{
-      console.log(data.message);
-      this.isSuccessful=true;
+    this.authorService.createBook(this.createbook).subscribe(data=> {
+      this.isSuccessful = true;
+      setTimeout(() => {
+        window.location.reload();
+      }, 4000);
     },
-    error=>{
+    error=> {
       console.error(error);
       this.errorMessage = error.error;
       this.isSuccessful = false;
     })
   }
-
 }

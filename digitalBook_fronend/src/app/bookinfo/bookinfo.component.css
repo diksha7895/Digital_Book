@@ -1,0 +1,19 @@
+.book-details {
+    display: flex;
+    padding: 5px;
+}
+
+.book-container{
+    display: flex;
+    margin-top: 30px;
+    margin-left: 20px;
+  }
+
+  .book-info{
+    margin-left: 50px;
+  }
+
+.book-content{
+    margin-left: 30px;
+    margin-top: 30px;
+  }

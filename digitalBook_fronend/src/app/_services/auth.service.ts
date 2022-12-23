@@ -3,9 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 const AUTH_API = 'http://localhost:8081/digitalbooks/';
+//const AUTH_API = 'https://c28vjkwqe3.execute-api.ap-northeast-1.amazonaws.com/UAT'; //for AWS
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' ,'Access-Control-Allow-Origin':"*"})
 };
 
 @Injectable({

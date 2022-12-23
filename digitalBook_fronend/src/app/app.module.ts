@@ -16,6 +16,9 @@ import { SearchbookComponent } from './searchbook/searchbook.component';
 import { CreatebookComponent } from './createbook/createbook.component';
 import { AllmybooksComponent } from './allmybooks/allmybooks.component';
 import { BookinfoComponent } from './bookinfo/bookinfo.component';
+import { UpdatebookComponent } from './updatebook/updatebook.component';
+import { BoardUserComponent } from './board-user/board-user.component';
+
 
 
 @NgModule({
@@ -25,10 +28,12 @@ import { BookinfoComponent } from './bookinfo/bookinfo.component';
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
+    BoardUserComponent,
     SearchbookComponent,
     CreatebookComponent,
     AllmybooksComponent,
-    BookinfoComponent
+    BookinfoComponent,
+    UpdatebookComponent
   
   ],
   imports: [

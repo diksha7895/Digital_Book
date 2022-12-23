@@ -10,6 +10,6 @@ export class HttpClientService {
   constructor(private httpClient: HttpClient) {
   }
   getBooks() {
-    return this.httpClient.get<Book[]>('http://localhost:8081/diggitalbooks/get');
+    return this.httpClient.get<Book[]>('http://localhost:8082/digitalbooks/get');
   }
 }

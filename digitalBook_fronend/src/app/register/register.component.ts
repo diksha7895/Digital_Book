@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
@@ -28,8 +27,8 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     const { username, email, password, role } = this.form;
-    // let roles = [];
-    // roles.push(role)
+    //  let role = [];
+    // role.push(roles);
    // let rolename:string=this.role.value==1?"reader":"author";
    //let roles:new Role(this.f['role'].value,)
     this.authService.register(username, email, password, role).subscribe(
