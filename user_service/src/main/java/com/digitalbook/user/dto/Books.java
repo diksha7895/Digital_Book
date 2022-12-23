@@ -1,33 +1,67 @@
 package com.digitalbook.user.dto;
 
 import java.util.Date;
+import java.util.Objects;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Books {
 	
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
 	
+	@Lob
+	private String logo;
+	
+	@NotBlank
+	@Size(min = 3, max = 50)
 	private String title;
-
+	
+	@NotBlank
+	@Size(min = 3, max = 20)
 	private String category;
+	
+	@NotNull
+	private Long price;
+	
 
-	private double price;
-
+	private String authorName;
+	
 	private int authorId;
 
+	private Date publishedDate;
+	
+	@NotBlank
+	@Size(min = 3, max = 20)
 	private String publisher;
-
-	private Date publishedDate; 
-
+	
 	private boolean active;
-
+	
+	@NotBlank
+	@Size(min = 50, max = 2000)
 	private String content;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 	public String getTitle() {
@@ -46,12 +80,20 @@ public class Books {
 		this.category = category;
 	}
 
-	public double getPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Long price) {
 		this.price = price;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 
 	public int getAuthorId() {
@@ -62,20 +104,20 @@ public class Books {
 		this.authorId = authorId;
 	}
 
-	public String getPublisher() {
-		return publisher;
-	}
-
-	public void setPublisher(String publisher) {
-		this.publisher = publisher;
-	}
-
 	public Date getPublishedDate() {
 		return publishedDate;
 	}
 
 	public void setPublishedDate(Date publishedDate) {
 		this.publishedDate = publishedDate;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
 	}
 
 	public boolean isActive() {
@@ -94,31 +136,36 @@ public class Books {
 		this.content = content;
 	}
 
-	public Books() {
-		super();
-		// TODO Auto-generated constructor stub
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Objects.hash(active, authorId, authorName, category, content, id, logo, price,
+				publishedDate, publisher, title);
+		return result;
 	}
 
-	public Books(int id, String title, String category, double price, int authorId, String publisher,
-			Date publishedDate, boolean active, String content) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.category = category;
-		this.price = price;
-		this.authorId = authorId;
-		this.publisher = publisher;
-		this.publishedDate = publishedDate;
-		this.active = active;
-		this.content = content;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Books other = (Books) obj;
+		return active == other.active && authorId == other.authorId && Objects.equals(authorName, other.authorName)
+				&& Objects.equals(category, other.category) && Objects.equals(content, other.content) && id == other.id
+				&& Objects.equals(logo, other.logo) && Objects.equals(price, other.price)
+				&& Objects.equals(publishedDate, other.publishedDate) && Objects.equals(publisher, other.publisher)
+				&& Objects.equals(title, other.title);
 	}
 
 	@Override
 	public String toString() {
-		return "Books [id=" + id + ", title=" + title + ", category=" + category + ", price=" + price + ", authorId="
-				+ authorId + ", publisher=" + publisher + ", publishedDate=" + publishedDate + ", active=" + active
-				+ ", content=" + content + "]";
+		return "Book [id=" + id + ", logo=" + logo + ", title=" + title + ", category=" + category
+				+ ", price=" + price + ", authorName=" + authorName + ", authorId=" + authorId + ", publishedDate="
+				+ publishedDate + ", publisher=" + publisher + ", active=" + active + ", content=" + content + "]";
 	}
-	
-	
+
 }

@@ -10,10 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 
 
@@ -28,7 +33,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="userid")
-	private int id;
+	private Long id;
 	
 	@NotNull
 	@Column(name="username")
@@ -49,13 +54,19 @@ public class User {
 	@Column(name="isActive")
 	Boolean isActive;
 	
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "user_subscriptions", 
+				joinColumns = @JoinColumn(name = "user_id"),
+				inverseJoinColumns = @JoinColumn(name = "subscription_id"))
+	 @Cascade({ CascadeType.SAVE_UPDATE, CascadeType.MERGE, CascadeType.PERSIST})
+	Set<Subscription> subscriptions = new HashSet<>();
 	
 
 public User() {
 		
 	}
 	
-	public User(int id, String userName, String password, String email, Role role,Boolean isActive) {
+	public User(Long id, String userName, String password, String email, Role role,Boolean isActive) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -71,10 +82,10 @@ public User() {
 		this.password = password;
 	}
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getUserName() {
@@ -108,12 +119,19 @@ public User() {
 		this.isActive=isActive;
 	}
 	
-	
+	public Set<Subscription> getSubscriptions() {
+		return subscriptions;
+	}
+
+	public void setSubscriptions(Set<Subscription> subscriptions) {
+		this.subscriptions = subscriptions;
+	}
+
 	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", email=" + email + ", role="
-				+ role + ",isActive="+ isActive +" ]";
+				+ role + ", subscriptions=" + subscriptions +",isActive="+ isActive +" ]";
 	}
 	
 }

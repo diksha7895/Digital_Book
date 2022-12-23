@@ -1,102 +1,85 @@
 package com.digitalbook.user.model;
 
-import java.util.Date;
-
-import javax.persistence.Column;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.util.ObjectUtils;
 
 
 @Entity
-@Table(name="SUBSCRIPTION")
-public class Subscription {
+@Table(name = "Subscription")
+public class Subscription implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "USER_FID")
-	private User user;
+	private Long bookId;
 	
-	@Column(name="BOOK_ID")
-	private int bookId;
+	@NotNull
+	private Long userId;
 	
-	@Column(name="DATE_OF_SUBSCRIPTION")
-	private Date dateOfSubscription;
+	private boolean active = true;
 	
-	@Column(name="CANCELLED")
-	private boolean isCancelled;
-	
-	@Column(name="DATE_OF_CANCEL")
-	private Date dateOfCancellation;
+	private Timestamp subscriptionTime;
 
-	public Subscription(String id, User user, int bookId, Date dateOfSubscription, boolean isCancelled,
-			Date dateOfCancellation) {
-		super();
-		this.id = id;
-		this.user = user;
-		this.bookId = bookId;
-		this.dateOfSubscription = dateOfSubscription;
-		this.isCancelled = isCancelled;
-		this.dateOfCancellation = dateOfCancellation;
-	}
-
-	public Subscription() {
-		super();
-
-	}
-
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public int getBookId() {
+	public Long getBookId() {
 		return bookId;
 	}
 
-	public void setBookId(int bookId) {
+	public void setBookId(Long bookId) {
 		this.bookId = bookId;
 	}
 
-	public Date getDateOfSubscription() {
-		return dateOfSubscription;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setDateOfSubscription(Date dateOfSubscription) {
-		this.dateOfSubscription = dateOfSubscription;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public boolean isCancelled() {
-		return isCancelled;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setCancelled(boolean isCancelled) {
-		this.isCancelled = isCancelled;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
-	public Date getDateOfCancellation() {
-		return dateOfCancellation;
+	public Timestamp getSubscriptionTime() {
+		return subscriptionTime;
 	}
 
-	public void setDateOfCancellation(Date dateOfCancellation) {
-		this.dateOfCancellation = dateOfCancellation;
+	public void setSubscriptionTime(String subscriptionTime) {
+		
+		this.subscriptionTime = ObjectUtils.isEmpty(subscriptionTime) ? Timestamp.valueOf(LocalDateTime.now()) : Timestamp.valueOf(subscriptionTime);
+	}
+
+	@Override
+	public String toString() {
+		return "Subscription [id=" + id + ", bookId=" + bookId + ", userId=" + userId + ", active=" + active
+				+ ", subscriptionTime=" + subscriptionTime + "]";
 	}
 	
-
 }
